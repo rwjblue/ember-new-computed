@@ -7,19 +7,19 @@ const { get, set } = Ember;
 module('new-computed-syntax');
 
 test('allows usage of function for simple getter semantics', function(assert) {
-  var object = {
+  var object = Ember.Object.extend({
     first: 'max',
     last: 'jackson',
     name: computed(function() {
       return get(this, 'first') + ' ' + get(this, 'last');
     })
-  };
+  }).create();
 
   assert.equal(get(object, 'name'), 'max jackson');
 });
 
 test('can specify a getter', function(assert) {
-  var object = {
+  var object = Ember.Object.extend({
     first: 'james',
     last: 'jackson',
     name: computed({
@@ -27,13 +27,13 @@ test('can specify a getter', function(assert) {
         return get(this, 'first') + ' ' + get(this, 'last');
       }
     })
-  };
+  }).create();
 
   assert.equal(get(object, 'name'), 'james jackson');
 });
 
 test('can specify a setter', function(assert) {
-  var object = {
+  var object = Ember.Object.extend({
     first: null,
     last: null,
     name: computed({
@@ -44,7 +44,7 @@ test('can specify a setter', function(assert) {
         set(this, 'last', last);
       }
     })
-  };
+  }).create();
 
   set(object, 'name', 'jacquie jackson');
 
