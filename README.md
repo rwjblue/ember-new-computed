@@ -16,7 +16,7 @@ import computed from 'ember-new-computed';
 export default Ember.Object({
   first: null,
   last: null,
-  name: computed({
+  name: computed('first', 'last', {
     get: function() {
       return this.get('first') + ' ' + this.get('last');
     },
