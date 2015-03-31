@@ -32,6 +32,24 @@ test('can specify a getter', function(assert) {
   assert.equal(get(object, 'name'), 'james jackson');
 });
 
+test('can specify dependent keys', function(assert) {
+  var object = Ember.Object.extend({
+    first: 'james',
+    last: 'jackson',
+    name: computed('first', 'last', {
+      get: function() {
+        return get(this, 'first') + ' ' + get(this, 'last');
+      }
+    })
+  }).create();
+
+  assert.equal(get(object, 'name'), 'james jackson');
+
+  set(object, 'first', 'robert');
+
+  assert.equal(get(object, 'name'), 'robert jackson');
+});
+
 test('can specify a setter', function(assert) {
   var object = Ember.Object.extend({
     first: null,
