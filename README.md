@@ -1,6 +1,35 @@
-# Ember-new-computed
+# ember-new-computed
 
-This README outlines the details of collaborating on this Ember addon.
+This addon allows usage of the new Ember Computed syntax as described in
+[emberjs/rfcs#11](https://github.com/emberjs/rfcs/pull/11) in older versions of Ember.
+
+For versions prior to 1.12.0-beta.1 this addon will allow usage of the new syntax by polyfilling
+but as of Ember 1.12.0-beta.1 a polyfill is not needed and the internal implementation of
+`Ember.computed` is used.
+
+## Usage
+
+```javascript
+import Ember from 'ember';
+import computed from 'ember-new-computed';
+
+export default Ember.Object({
+  first: null,
+  last: null,
+  name: computed({
+    get: function() {
+      return this.get('first') + ' ' + this.get('last');
+    },
+
+    set: function(key, value) {
+      var [ first, last ] = value.split(' ');
+
+      this.set('first', first);
+      this.set('last', last);
+    }
+  })
+});
+```
 
 ## Installation
 
