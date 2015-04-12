@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import canUseNewSyntax from './utils/can-use-new-syntax';
 
-const computed = Ember.computed;
+const { computed } = Ember;
 
 export default function() {
   var polyfillArguments = [];
