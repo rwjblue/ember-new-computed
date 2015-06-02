@@ -3,7 +3,7 @@ import canUseNewSyntax from './utils/can-use-new-syntax';
 
 const { computed } = Ember;
 
-export default function() {
+export default function newComputed() {
   var polyfillArguments = [];
   var config = arguments[arguments.length - 1];
 
