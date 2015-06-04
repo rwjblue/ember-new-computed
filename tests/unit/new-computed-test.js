@@ -69,3 +69,9 @@ test('can specify a setter', function(assert) {
   assert.equal(get(object, 'first'), 'jacquie');
   assert.equal(get(object, 'last'), 'jackson');
 });
+
+test('has a copy of all the cp helpers on the Ember.computed namespace', function(assert) {
+  for (let key in Ember.computed) {
+    assert.equal(computed[key], Ember.computed[key], `${key} exists on both`);
+  }
+});

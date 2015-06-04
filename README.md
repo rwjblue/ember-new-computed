@@ -26,7 +26,9 @@ export default Ember.Object({
       this.set('first', first);
       this.set('last', last);
     }
-  })
+  }),
+  // All `Ember.computed` helpers exists as well
+  fullName: computed.reads('name')
 });
 ```
 
