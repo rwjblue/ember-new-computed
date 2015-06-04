@@ -34,3 +34,9 @@ export default function newComputed() {
 
   return computed(...polyfillArguments);
 }
+
+const computedKeys = Ember.keys(computed);
+
+for (let i = 0, l = computedKeys.length; i < l; i++) {
+  newComputed[computedKeys[i]] = computed[computedKeys[i]];
+}
