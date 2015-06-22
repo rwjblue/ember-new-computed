@@ -17,9 +17,9 @@ export default function newComputed() {
 
   var func;
   if (config.set) {
-    func = function(key, value) {
+    func = function(key, value, oldValue) {
       if (arguments.length > 1) {
-        return config.set.call(this, key, value);
+        return config.set.call(this, key, value, oldValue);
       } else {
         return config.get.call(this, key);
       }

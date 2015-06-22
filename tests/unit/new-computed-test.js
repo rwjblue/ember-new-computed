@@ -70,6 +70,27 @@ test('can specify a setter', function(assert) {
   assert.equal(get(object, 'last'), 'jackson');
 });
 
+test('receives the old value', function(assert) {
+  var object = Ember.Object.extend({
+    first: null,
+    last: null,
+    old: null,
+    name: computed({
+      set: function(key, value, oldValue) {
+        set(this, 'old', oldValue);
+        return value;
+      }
+    })
+  }).create();
+
+  set(object, 'name', 'elaine jackson');
+  assert.equal(get(object, 'old'), null);
+
+  set(object, 'name', 'jacquie jackson');
+  assert.equal(get(object, 'old'), 'elaine jackson');
+
+});
+
 test('has a copy of all the cp helpers on the Ember.computed namespace', function(assert) {
   for (let key in Ember.computed) {
     assert.equal(computed[key], Ember.computed[key], `${key} exists on both`);
