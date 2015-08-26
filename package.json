@@ -1,6 +1,6 @@
 {
   "name": "ember-new-computed",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
     "test": "tests"
