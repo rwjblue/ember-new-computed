@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { keys } from '@ember/polyfills';
 import canUseNewSyntax from './utils/can-use-new-syntax';
-
-const { computed } = Ember;
 
 export default function newComputed() {
   var polyfillArguments = [];
@@ -35,7 +34,7 @@ export default function newComputed() {
   return computed(...polyfillArguments);
 }
 
-const getKeys = Object.keys || Ember.keys;
+const getKeys = Object.keys || keys;
 const computedKeys = getKeys(computed);
 
 for (let i = 0, l = computedKeys.length; i < l; i++) {
