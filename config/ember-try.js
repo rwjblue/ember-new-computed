@@ -1,52 +1,83 @@
-module.exports = {
-  scenarios: [
-    {
-      name: 'ember-1.10.0',
-      dependencies: {
-        "ember": "1.10.0"
-      }
-    },
-    {
-      name: 'ember-1.11.0',
-      dependencies: {
-        "ember": "1.11.0"
-      }
-    },
-    {
-      name: 'ember-1.12.1',
-      dependencies: {
-        "ember": "1.12.1"
-      }
-    },
-    {
-      name: 'ember-1.13.9',
-      dependencies: {
-        "ember": "1.13.9"
-      }
-    },
-    {
-      name: 'ember-2.0.0',
-      dependencies: {
-        "ember": "2.0.0"
-      },
-      resolutions: {
-        "ember": "2.0.0"
-      }
-    },
-    {
-      name: 'ember-2.1.0-beta.2',
-      dependencies: {
-        "ember": "2.1.0-beta.2"
-      },
-      resolutions: {
-        "ember": "2.1.0-beta.2"
-      }
-    },
-    //{
-    //  name: 'ember-canary',
-    //  dependencies: {
-    //    "ember": "components/ember#canary"
-    //  }
-    //}
-  ]
+'use strict';
+
+const getChannelURL = require('ember-source-channel-url');
+
+module.exports = function() {
+  return Promise.all([
+    getChannelURL('release'),
+    getChannelURL('beta'),
+    getChannelURL('canary')
+  ]).then((urls) => {
+    return {
+      scenarios: [
+        {
+          name: 'ember-lts-2.16',
+          env: {
+            EMBER_OPTIONAL_FEATURES: JSON.stringify({ 'jquery-integration': true }),
+          },
+          npm: {
+            devDependencies: {
+              '@ember/jquery': '^0.5.1',
+              'ember-source': '~2.16.0'
+            }
+          }
+        },
+        {
+          name: 'ember-lts-2.18',
+          env: {
+            EMBER_OPTIONAL_FEATURES: JSON.stringify({ 'jquery-integration': true }),
+          },
+          npm: {
+            devDependencies: {
+              '@ember/jquery': '^0.5.1',
+              'ember-source': '~2.18.0'
+            }
+          }
+        },
+        {
+          name: 'ember-release',
+          npm: {
+            devDependencies: {
+              'ember-source': urls[0]
+            }
+          }
+        },
+        {
+          name: 'ember-beta',
+          npm: {
+            devDependencies: {
+              'ember-source': urls[1]
+            }
+          }
+        },
+        {
+          name: 'ember-canary',
+          npm: {
+            devDependencies: {
+              'ember-source': urls[2]
+            }
+          }
+        },
+        {
+          name: 'ember-default',
+          npm: {
+            devDependencies: {}
+          }
+        },
+        {
+          name: 'ember-default-with-jquery',
+          env: {
+            EMBER_OPTIONAL_FEATURES: JSON.stringify({
+              'jquery-integration': true
+            })
+          },
+          npm: {
+            devDependencies: {
+              '@ember/jquery': '^0.5.1'
+            }
+          }
+        }
+      ]
+    };
+  });
 };
