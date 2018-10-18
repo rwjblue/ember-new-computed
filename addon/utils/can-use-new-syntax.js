@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+
 var supportsSetterGetter;
 
 try {
-  Ember.computed({
+  computed({
     set: function() { },
     get: function() { }
   });

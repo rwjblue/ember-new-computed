@@ -1,13 +1,13 @@
-import Ember from 'ember';
 import { module, test } from 'qunit';
+import { get, set } from '@ember/object';
+import EmberObject from '@ember/object';
+import { computed as EmberComputed } from '@ember/object';
 import computed from 'ember-new-computed';
-
-const { get, set } = Ember;
 
 module('new-computed-syntax');
 
 test('allows usage of function for simple getter semantics', function(assert) {
-  var object = Ember.Object.extend({
+  var object = EmberObject.extend({
     first: 'max',
     last: 'jackson',
     name: computed(function() {
@@ -19,7 +19,7 @@ test('allows usage of function for simple getter semantics', function(assert) {
 });
 
 test('can specify a getter', function(assert) {
-  var object = Ember.Object.extend({
+  var object = EmberObject.extend({
     first: 'james',
     last: 'jackson',
     name: computed({
@@ -33,7 +33,7 @@ test('can specify a getter', function(assert) {
 });
 
 test('can specify dependent keys', function(assert) {
-  var object = Ember.Object.extend({
+  var object = EmberObject.extend({
     first: 'james',
     last: 'jackson',
     name: computed('first', 'last', {
@@ -51,7 +51,7 @@ test('can specify dependent keys', function(assert) {
 });
 
 test('can specify a setter', function(assert) {
-  var object = Ember.Object.extend({
+  var object = EmberObject.extend({
     first: null,
     last: null,
     name: computed({
@@ -70,8 +70,8 @@ test('can specify a setter', function(assert) {
   assert.equal(get(object, 'last'), 'jackson');
 });
 
-test('has a copy of all the cp helpers on the Ember.computed namespace', function(assert) {
-  for (let key in Ember.computed) {
-    assert.equal(computed[key], Ember.computed[key], `${key} exists on both`);
+test('has a copy of all the cp helpers on the EmberComputed namespace', function(assert) {
+  for (let key in EmberComputed) {
+    assert.equal(computed[key], EmberComputed[key], `${key} exists on both`);
   }
 });
